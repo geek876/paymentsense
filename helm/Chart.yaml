@@ -1,0 +1,4 @@
+apiVersion: v1
+name: paymentsense-app
+version: 1.0.1
+appVersion: v1.0.0

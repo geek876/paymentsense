@@ -1,0 +1,15 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: {{ template "paymentsense.name" . }}-ingress
+  annotations:
+    kubernetes.io/ingress.class: {{ .Values.ingress.type }}
+spec:
+  rules:
+    - host: {{ .Values.ingress.host }}
+      http:
+        paths:
+        - path: /
+          backend:
+            serviceName: {{ template "paymentsense.name" . }}-service
+            servicePort: {{ .Values.service.port }}

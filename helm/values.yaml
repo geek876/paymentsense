@@ -1,0 +1,56 @@
+image: 
+  url: europe-west2-docker.pkg.dev/refined-stream-190917/paymentsense/paymentsense
+  tag: latest
+
+replicas: 1
+
+strategy: RollingUpdate
+
+imagePullPolicy: IfNotPresent
+
+service:
+  type: NodePort
+  port: 8080
+
+ingress:
+  host: paymentsense.designlinks.net
+  type: gce
+
+resources:
+  requests:
+    memory: "128Mi"
+    cpu: "250m"
+  limits:
+    memory: "256Mi"
+    cpu: "500m"
+
+livenessProbe:
+  path: /
+  initialDelaySeconds: 5
+  timooutSeconds: 2
+
+extraVars: {}
+  # test1: "test2"
+
+# Add additional volumes and mounts, for example to read other log files on the host
+extraVolumes: []
+  # - hostPath:
+  #     path: /var/log
+  #   name: varlog
+
+extraVolumeMounts: []
+  # - name: varlog
+  #   mountPath: /host/var/log
+  #   readOnly: true
+
+## Labels to be added to pods
+podLabels: {}
+
+## Annotations to be added to pods
+podAnnotations: {}
+
+## Node labels for pod assignment
+nodeSelector: {}
+
+## Affinity configuration for pod assignment
+affinity: {}
